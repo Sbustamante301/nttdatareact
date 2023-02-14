@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
+import { parse } from 'json2csv';
+import { saveAs } from 'file-saver';
 
 
 const Container = styled.div`
@@ -42,6 +44,21 @@ const Image = styled.img`
 
 function sortUsersByAge(users) {
   return users.sort((a, b) => a.dob.age - b.dob.age);
+}
+
+function downloadCSV(data) {
+  const fields = [
+    { label: 'Nombre', value: 'name.first' },
+    { label: 'Apellido', value: 'name.last' },
+    { label: 'Edad', value: 'dob.age' },
+    { label: 'Género', value: 'gender' },
+    { label: 'Email', value: 'email' },
+    { label: 'Nacionalidad', value: 'nat' },
+  ];
+
+  const csv = parse(data, { fields });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  saveAs(blob, 'data.csv');
 }
 
 function ClientsTable() {
@@ -90,7 +107,9 @@ function ClientsTable() {
           ))}
         </tbody>
       </Table>
+       <button onClick={() => downloadCSV(data)}>Descargar CSV</button>
       </Container>
+      
   );
 }
 
