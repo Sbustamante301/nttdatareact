@@ -52,7 +52,7 @@ function ClientsTable() {
       .get('https://randomuser.me/api/', {
         params: {
           results: 15,
-          nat: 'us',
+          
         },
       })
       .then((response) => {
