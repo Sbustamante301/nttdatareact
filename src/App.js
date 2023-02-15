@@ -107,7 +107,7 @@ function ClientsTable() {
           ))}
         </tbody>
       </Table>
-       <button onClick={() => downloadCSV(data)}>Descargar CSV</button>
+       <button onClick={() => downloadCSV(data)}>Download Csv</button>
       </Container>
       
   );
